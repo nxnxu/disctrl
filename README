@@ -1,0 +1,5 @@
+disctrl - Display Controller 
+
+A python script to control brightness, backlight, nightmode.
+Redshift is required for nightmode.
+ 
