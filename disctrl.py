@@ -1,12 +1,14 @@
 import subprocess
+import os
 import tkinter as tk
-
 
 # TODO Check exceptions while running commands
 # TODO A label to show error messages
 # TODO Script needs sudo permission
 # TODO Fix backlight maximum value, currently it is set to 100
-#
+
+SCRIPT_DIR = os.path.dirname(__file__)
+
 
 def execute_shell_command(cmd):
     proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
@@ -54,20 +56,20 @@ class Application(tk.Frame):
         self.backlight.set(self.query_backlight())
 
     def query_brightness(self):
-        cmd = f'./query_brightness.sh'
+        cmd = f'{SCRIPT_DIR}/query_brightness.sh'
         return int(execute_shell_command(cmd)[0])
 
     def query_backlight(self):
-        cmd = f'./query_backlight.sh'
+        cmd = f'{SCRIPT_DIR}/query_backlight.sh'
         return int(execute_shell_command(cmd)[0])
 
     def change_brightness(self, brightness):
-        cmd = f'sudo ./change_brightness.sh {brightness}'
+        cmd = f'sudo {SCRIPT_DIR}/change_brightness.sh {brightness}'
         execute_shell_command(cmd)
         self.set_scale_values()
 
     def change_backlight(self, backlight):
-        cmd = f'sudo ./change_backlight.sh {backlight}'
+        cmd = f'sudo {SCRIPT_DIR}/change_backlight.sh {backlight}'
         execute_shell_command(cmd)
         self.set_scale_values()
 
